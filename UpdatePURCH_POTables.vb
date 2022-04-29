@@ -695,4 +695,21 @@ Public Class UpdatePURCH_POTables
         End Try
     End Sub
 
+    Public Sub Load_McMc(dt As DataTable, tablename As String)
+        ClearTable(tablename)
+
+        FAStQuoteCon.Open()
+        Using bulkcopy As New SqlBulkCopy(FAStQuoteCon)
+            bulkcopy.DestinationTableName = tablename
+            Try
+                bulkcopy.WriteToServer(dt)
+            Catch ex As Exception
+                MsgBox("McMc Reports BulkCopy" & vbCrLf & ex.Message)
+                If FAStQuoteCon.State = ConnectionState.Open Then FAStQuoteCon.Close()
+            End Try
+        End Using
+        FAStQuoteCon.Close()
+
+    End Sub
+
 End Class

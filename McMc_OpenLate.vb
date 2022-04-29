@@ -19,7 +19,11 @@
         If dialog.ShowDialog() = DialogResult.OK Then
             dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
         End If
-        ' MsgBox(dt.Rows.Count)
+
+        'Load data to Table
+        myPurch.Load_McMc(dt, "dbo.McMcOpenLate")
+
+        'Setup to display in DGV
         tmpDV = dt.DefaultView
         tmpDV.Sort = "custpo"
 

@@ -1,5 +1,6 @@
 ﻿Public Class McMc_StockAllocation
     Dim myImpExp As New ImportExport
+    Dim myPurch As New UpdatePURCH_POTables
     Dim dt As DataTable
     Dim tmpDV As DataView
 
@@ -14,6 +15,10 @@
             dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
         End If
 
+        'Load data to Table
+        myPurch.Load_McMc(dt, "dbo.McMcAllocation")
+
+        'Setup to display in DGV
         tmpDV = dt.DefaultView
         tmpDV.Sort = "PO"
         tmpDV.RowFilter = "[Qty Shipped] > 0"
