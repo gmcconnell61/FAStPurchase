@@ -25,6 +25,9 @@ Partial Class McMc_OpenLate
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkEarlier = New System.Windows.Forms.CheckBox()
+        Me.chkNoChange = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnReset = New System.Windows.Forms.Button()
@@ -36,7 +39,9 @@ Partial Class McMc_OpenLate
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.dgvFASOpen = New System.Windows.Forms.DataGridView()
         Me.dgvOpenLate = New System.Windows.Forms.DataGridView()
+        Me.chkNoDate = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.dgvFASOpen, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,6 +50,7 @@ Partial Class McMc_OpenLate
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.GroupBox1)
         Me.Panel1.Controls.Add(Me.btnGetFile)
@@ -54,6 +60,42 @@ Partial Class McMc_OpenLate
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1904, 124)
         Me.Panel1.TabIndex = 4
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.chkNoDate)
+        Me.GroupBox2.Controls.Add(Me.chkEarlier)
+        Me.GroupBox2.Controls.Add(Me.chkNoChange)
+        Me.GroupBox2.Location = New System.Drawing.Point(1497, 9)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(310, 112)
+        Me.GroupBox2.TabIndex = 3
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Filter"
+        '
+        'chkEarlier
+        '
+        Me.chkEarlier.AutoSize = True
+        Me.chkEarlier.Checked = True
+        Me.chkEarlier.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkEarlier.Location = New System.Drawing.Point(20, 57)
+        Me.chkEarlier.Name = "chkEarlier"
+        Me.chkEarlier.Size = New System.Drawing.Size(230, 24)
+        Me.chkEarlier.TabIndex = 1
+        Me.chkEarlier.Text = "LateDate Earlier than DueDate"
+        Me.chkEarlier.UseVisualStyleBackColor = True
+        '
+        'chkNoChange
+        '
+        Me.chkNoChange.AutoSize = True
+        Me.chkNoChange.Checked = True
+        Me.chkNoChange.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkNoChange.Location = New System.Drawing.Point(20, 29)
+        Me.chkNoChange.Name = "chkNoChange"
+        Me.chkNoChange.Size = New System.Drawing.Size(178, 24)
+        Me.chkNoChange.TabIndex = 0
+        Me.chkNoChange.Text = "NewLate Not Changed"
+        Me.chkNoChange.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -197,6 +239,18 @@ Partial Class McMc_OpenLate
         Me.dgvOpenLate.Size = New System.Drawing.Size(952, 949)
         Me.dgvOpenLate.TabIndex = 2
         '
+        'chkNoDate
+        '
+        Me.chkNoDate.AutoSize = True
+        Me.chkNoDate.Checked = True
+        Me.chkNoDate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkNoDate.Location = New System.Drawing.Point(20, 85)
+        Me.chkNoDate.Name = "chkNoDate"
+        Me.chkNoDate.Size = New System.Drawing.Size(98, 24)
+        Me.chkNoDate.TabIndex = 2
+        Me.chkNoDate.Text = "Not Found"
+        Me.chkNoDate.UseVisualStyleBackColor = True
+        '
         'McMc_OpenLate
         '
         Me.AcceptButton = Me.btnGo
@@ -215,6 +269,8 @@ Partial Class McMc_OpenLate
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -236,4 +292,8 @@ Partial Class McMc_OpenLate
     Friend WithEvents dgvOpenLate As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents dgvFASOpen As DataGridView
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents chkEarlier As CheckBox
+    Friend WithEvents chkNoChange As CheckBox
+    Friend WithEvents chkNoDate As CheckBox
 End Class

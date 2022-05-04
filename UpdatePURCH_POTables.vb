@@ -572,7 +572,7 @@ Public Class UpdatePURCH_POTables
     Public Sub LoadItemQuery()
         ClearTable("PurchOpenItems")
 
-        vQuery = "SELECT PurchPODetail.job_no, PurchPODetail.unit_no, PurchPODetail.po_no, PurchPODetail.rec_no, PurchPOHeader.po_date, PurchPOHeader.co_name, PurchPODetail.mfg, PurchPODetail.part_no, PurchPODetail.description, PurchPODetail.quantity, " &
+        vQuery = "SELECT PurchPODetail.job_no, PurchPODetail.unit_no, PurchPODetail.po_no, PurchPODetail.rec_no, PurchPOHeader.po_date, PurchPOHeader.co_name, PurchPODetail.mfg, rtrim(PurchPODetail.part_no), PurchPODetail.description, PurchPODetail.quantity, " &
                  "SUM(PurchRecv.recv) AS Recv, PurchPOHeader.recv_on " &
                  "FROM PurchPODetail INNER JOIN PurchPOHeader ON PurchPODetail.job_no = PurchPOHeader.job_no AND PurchPODetail.unit_no = PurchPOHeader.unit_no AND PurchPODetail.po_no = PurchPOHeader.po_no " &
                  "LEFT OUTER JOIN PurchRecv ON PurchPODetail.job_no = PurchRecv.job_no AND PurchPODetail.unit_no = PurchRecv.unit_no " &

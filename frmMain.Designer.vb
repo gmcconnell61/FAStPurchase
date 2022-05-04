@@ -45,6 +45,7 @@ Partial Class frmMain
         Me.MFGVolumeQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.REFRESHDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainPanel = New System.Windows.Forms.Panel()
+        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -92,7 +93,7 @@ Partial Class frmMain
         '
         'McMcWeeklyReportsToolStripMenuItem
         '
-        Me.McMcWeeklyReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenLateReportToolStripMenuItem1, Me.AllocationReportToolStripMenuItem})
+        Me.McMcWeeklyReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenLateReportToolStripMenuItem1, Me.AllocationReportToolStripMenuItem, Me.TestToolStripMenuItem})
         Me.McMcWeeklyReportsToolStripMenuItem.Name = "McMcWeeklyReportsToolStripMenuItem"
         Me.McMcWeeklyReportsToolStripMenuItem.Size = New System.Drawing.Size(173, 24)
         Me.McMcWeeklyReportsToolStripMenuItem.Text = "Mc-Mc Weekly Reports"
@@ -200,7 +201,13 @@ Partial Class frmMain
         Me.MainPanel.Size = New System.Drawing.Size(1904, 1011)
         Me.MainPanel.TabIndex = 1
         '
-        'Main
+        'TestToolStripMenuItem
+        '
+        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
+        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(217, 24)
+        Me.TestToolStripMenuItem.Text = "Test"
+        '
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -209,7 +216,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.MainMenu)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MainMenu
-        Me.Name = "Main"
+        Me.Name = "frmMain"
         Me.Text = "Purchasing Dashboard"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MainMenu.ResumeLayout(False)
@@ -242,4 +249,5 @@ Partial Class frmMain
     Friend WithEvents McMcWeeklyReportsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OpenLateReportToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents AllocationReportToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
 End Class

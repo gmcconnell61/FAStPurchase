@@ -11,6 +11,7 @@
     Dim frmExcess_Transfer As New Excess_Transfer
     Dim frmMcMcOpenLate As New McMc_OpenLate
     Dim frmMcMcAllocation As New McMc_StockAllocation
+    Dim frmTest As New Test
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         myPurch.LoadData()
@@ -177,5 +178,17 @@
         frmMcMcAllocation.BringToFront()
     End Sub
 
-
+    Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
+        If frmTest.Visible Then
+            frmTest.BringToFront()
+            Exit Sub
+        End If
+        frmTest = New Test
+        frmTest.TopLevel = False
+        frmTest.Dock = DockStyle.Fill
+        frmTest.MdiParent = Me
+        Me.MainPanel.Controls.Add(frmTest)
+        frmTest.Show()
+        frmTest.BringToFront()
+    End Sub
 End Class

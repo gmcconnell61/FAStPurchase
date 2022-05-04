@@ -21,7 +21,10 @@
         End If
 
         'Load data to Table
-        myPurch.Load_McMc(dt, "dbo.McMcOpenLate")
+        For x = 0 To dt.Rows.Count - 1 'Clears dashes out of part numbers
+            dt.Rows(x).Item("shipprod") = dt.Rows(x).Item("shipprod").ToString.Replace("-", "")
+        Next
+        myPurch.Load_McMc(dt, "dbo.McMcOpenLate") 'Loads to datatable
 
         'Setup to display in DGV
         tmpDV = dt.DefaultView
@@ -67,6 +70,20 @@
         ElseIf rdoPartNo.Checked = True And Len(txtFilter.Text) > 0 Then
             tmpDV.RowFilter = "shipprod like'%" + txtFilter.Text + "%'"
             fasDV.RowFilter = "co_name like '%McNaught%' AND part_no like'%" + txtFilter.Text + "%'"
+        End If
+    End Sub
+
+    Private Sub Filter_CheckedChanged(sender As Object, e As EventArgs) Handles chkNoChange.CheckedChanged, chkEarlier.CheckedChanged
+        If dgvFASOpen.Rows.Count > 0 Then 'Makes sure data is present
+            If chkEarlier.Checked = True And chkNoChange.Checked = True Then 'Full list
+                fasDV.RowFilter = "co_name like '%McNaught%'"
+            ElseIf chkEarlier.Checked = True And chkNoChange.Checked = False Then 'No change hidden
+                fasDV.RowFilter = "co_name like '%McNaught%' AND (NewArrival <> LateDate OR LateDate = '')"
+            ElseIf chkEarlier.Checked = False And chkNoChange.Checked = True Then 'Late earlier than due turned off
+                fasDV.RowFilter = "co_name like '%McNaught%'"
+            ElseIf chkEarlier.Checked = False And chkNoChange.Checked = False Then 'Both turned off
+                fasDV.RowFilter = "co_name like '%McNaught%'"
+            End If
         End If
     End Sub
 
@@ -143,6 +160,8 @@
             .Columns(8).Visible = False 'desc
             .Columns(10).Visible = False 'received
 
+            .Columns(7).HeaderText = "Catalog Number"
+            .Columns(9).HeaderText = "Qty"
             .Columns(11).HeaderText = "Due Date"
             .Columns(11).DefaultCellStyle.Format = "d"
             .Columns(12).DisplayIndex = 0 'new late date
