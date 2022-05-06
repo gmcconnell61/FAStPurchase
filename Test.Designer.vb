@@ -22,7 +22,7 @@ Partial Class Test
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvFASOpen = New System.Windows.Forms.DataGridView()
         Me.btnAllocated = New System.Windows.Forms.Button()
         Me.btnLate = New System.Windows.Forms.Button()
@@ -32,10 +32,18 @@ Partial Class Test
         Me.rdo3 = New System.Windows.Forms.RadioButton()
         Me.rdo2 = New System.Windows.Forms.RadioButton()
         Me.rdo1 = New System.Windows.Forms.RadioButton()
-        Me.lblRecordCount = New System.Windows.Forms.Label()
+        Me.lblAllocationDate = New System.Windows.Forms.Label()
+        Me.lblRollupDate = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnReset = New System.Windows.Forms.Button()
+        Me.btnGo = New System.Windows.Forms.Button()
+        Me.txtFilter = New System.Windows.Forms.TextBox()
+        Me.rdoPartNo = New System.Windows.Forms.RadioButton()
+        Me.rdoJob = New System.Windows.Forms.RadioButton()
         CType(Me.dgvFASOpen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'dgvFASOpen
@@ -43,14 +51,14 @@ Partial Class Test
         Me.dgvFASOpen.AllowUserToAddRows = False
         Me.dgvFASOpen.AllowUserToDeleteRows = False
         Me.dgvFASOpen.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvFASOpen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFASOpen.Location = New System.Drawing.Point(800, 13)
         Me.dgvFASOpen.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -77,7 +85,7 @@ Partial Class Test
         Me.btnLate.Name = "btnLate"
         Me.btnLate.Size = New System.Drawing.Size(194, 46)
         Me.btnLate.TabIndex = 6
-        Me.btnLate.Text = "Update Late Dates"
+        Me.btnLate.Text = "Load New RollUp File"
         Me.btnLate.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -87,7 +95,7 @@ Partial Class Test
         Me.GroupBox1.Controls.Add(Me.rdo3)
         Me.GroupBox1.Controls.Add(Me.rdo2)
         Me.GroupBox1.Controls.Add(Me.rdo1)
-        Me.GroupBox1.Location = New System.Drawing.Point(306, 25)
+        Me.GroupBox1.Location = New System.Drawing.Point(401, 25)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(257, 208)
         Me.GroupBox1.TabIndex = 7
@@ -150,31 +158,107 @@ Partial Class Test
         Me.rdo1.Text = "Allocated"
         Me.rdo1.UseVisualStyleBackColor = True
         '
-        'lblRecordCount
+        'lblAllocationDate
         '
-        Me.lblRecordCount.AutoSize = True
-        Me.lblRecordCount.Location = New System.Drawing.Point(708, 25)
-        Me.lblRecordCount.Name = "lblRecordCount"
-        Me.lblRecordCount.Size = New System.Drawing.Size(53, 20)
-        Me.lblRecordCount.TabIndex = 8
-        Me.lblRecordCount.Text = "Label1"
+        Me.lblAllocationDate.AutoSize = True
+        Me.lblAllocationDate.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.lblAllocationDate.Location = New System.Drawing.Point(229, 31)
+        Me.lblAllocationDate.Name = "lblAllocationDate"
+        Me.lblAllocationDate.Size = New System.Drawing.Size(25, 30)
+        Me.lblAllocationDate.TabIndex = 10
+        Me.lblAllocationDate.Text = "x"
+        '
+        'lblRollupDate
+        '
+        Me.lblRollupDate.AutoSize = True
+        Me.lblRollupDate.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.lblRollupDate.Location = New System.Drawing.Point(229, 103)
+        Me.lblRollupDate.Name = "lblRollupDate"
+        Me.lblRollupDate.Size = New System.Drawing.Size(25, 30)
+        Me.lblRollupDate.TabIndex = 11
+        Me.lblRollupDate.Text = "x"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(306, 308)
+        Me.Button1.Location = New System.Drawing.Point(12, 161)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(83, 35)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "Highlight"
+        Me.Button1.Size = New System.Drawing.Size(194, 46)
+        Me.Button1.TabIndex = 12
+        Me.Button1.Text = "TEST"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.btnReset)
+        Me.GroupBox2.Controls.Add(Me.btnGo)
+        Me.GroupBox2.Controls.Add(Me.txtFilter)
+        Me.GroupBox2.Controls.Add(Me.rdoPartNo)
+        Me.GroupBox2.Controls.Add(Me.rdoJob)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 263)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(646, 108)
+        Me.GroupBox2.TabIndex = 13
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Search / Filter Records"
+        '
+        'btnReset
+        '
+        Me.btnReset.Location = New System.Drawing.Point(499, 37)
+        Me.btnReset.Name = "btnReset"
+        Me.btnReset.Size = New System.Drawing.Size(112, 30)
+        Me.btnReset.TabIndex = 4
+        Me.btnReset.Text = "Reset Filter"
+        Me.btnReset.UseVisualStyleBackColor = True
+        '
+        'btnGo
+        '
+        Me.btnGo.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.btnGo.Location = New System.Drawing.Point(435, 37)
+        Me.btnGo.Name = "btnGo"
+        Me.btnGo.Size = New System.Drawing.Size(38, 31)
+        Me.btnGo.TabIndex = 3
+        Me.btnGo.Text = "Go"
+        Me.btnGo.UseVisualStyleBackColor = True
+        '
+        'txtFilter
+        '
+        Me.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtFilter.Location = New System.Drawing.Point(148, 40)
+        Me.txtFilter.Name = "txtFilter"
+        Me.txtFilter.Size = New System.Drawing.Size(270, 27)
+        Me.txtFilter.TabIndex = 2
+        '
+        'rdoPartNo
+        '
+        Me.rdoPartNo.AutoSize = True
+        Me.rdoPartNo.Location = New System.Drawing.Point(20, 67)
+        Me.rdoPartNo.Name = "rdoPartNo"
+        Me.rdoPartNo.Size = New System.Drawing.Size(110, 24)
+        Me.rdoPartNo.TabIndex = 1
+        Me.rdoPartNo.Text = "Part Number"
+        Me.rdoPartNo.UseVisualStyleBackColor = True
+        '
+        'rdoJob
+        '
+        Me.rdoJob.AutoSize = True
+        Me.rdoJob.Checked = True
+        Me.rdoJob.Location = New System.Drawing.Point(20, 26)
+        Me.rdoJob.Name = "rdoJob"
+        Me.rdoJob.Size = New System.Drawing.Size(83, 24)
+        Me.rdoJob.TabIndex = 0
+        Me.rdoJob.TabStop = True
+        Me.rdoJob.Text = "Job / PO"
+        Me.rdoJob.UseVisualStyleBackColor = True
         '
         'Test
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1904, 1095)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.lblRecordCount)
+        Me.Controls.Add(Me.lblRollupDate)
+        Me.Controls.Add(Me.lblAllocationDate)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLate)
         Me.Controls.Add(Me.btnAllocated)
@@ -187,6 +271,8 @@ Partial Class Test
         CType(Me.dgvFASOpen, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -201,6 +287,13 @@ Partial Class Test
     Friend WithEvents rdo2 As RadioButton
     Friend WithEvents rdo1 As RadioButton
     Friend WithEvents rdo0 As RadioButton
-    Friend WithEvents lblRecordCount As Label
+    Friend WithEvents lblAllocationDate As Label
+    Friend WithEvents lblRollupDate As Label
     Friend WithEvents Button1 As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents btnReset As Button
+    Friend WithEvents btnGo As Button
+    Friend WithEvents txtFilter As TextBox
+    Friend WithEvents rdoPartNo As RadioButton
+    Friend WithEvents rdoJob As RadioButton
 End Class

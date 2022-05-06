@@ -29,8 +29,6 @@ Partial Class frmMain
         Me.FabricationSubcontractorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenItemQueryToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.McMcWeeklyReportsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenLateReportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AllocationReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProjectsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProjectStatusToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.JobLookUpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,7 +43,6 @@ Partial Class frmMain
         Me.MFGVolumeQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.REFRESHDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainPanel = New System.Windows.Forms.Panel()
-        Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainMenu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -93,22 +90,9 @@ Partial Class frmMain
         '
         'McMcWeeklyReportsToolStripMenuItem
         '
-        Me.McMcWeeklyReportsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenLateReportToolStripMenuItem1, Me.AllocationReportToolStripMenuItem, Me.TestToolStripMenuItem})
         Me.McMcWeeklyReportsToolStripMenuItem.Name = "McMcWeeklyReportsToolStripMenuItem"
         Me.McMcWeeklyReportsToolStripMenuItem.Size = New System.Drawing.Size(173, 24)
         Me.McMcWeeklyReportsToolStripMenuItem.Text = "Mc-Mc Weekly Reports"
-        '
-        'OpenLateReportToolStripMenuItem1
-        '
-        Me.OpenLateReportToolStripMenuItem1.Name = "OpenLateReportToolStripMenuItem1"
-        Me.OpenLateReportToolStripMenuItem1.Size = New System.Drawing.Size(217, 24)
-        Me.OpenLateReportToolStripMenuItem1.Text = "Open && Late Report"
-        '
-        'AllocationReportToolStripMenuItem
-        '
-        Me.AllocationReportToolStripMenuItem.Name = "AllocationReportToolStripMenuItem"
-        Me.AllocationReportToolStripMenuItem.Size = New System.Drawing.Size(217, 24)
-        Me.AllocationReportToolStripMenuItem.Text = "Allocation Report"
         '
         'ProjectsToolStripMenuItem
         '
@@ -201,12 +185,6 @@ Partial Class frmMain
         Me.MainPanel.Size = New System.Drawing.Size(1904, 1011)
         Me.MainPanel.TabIndex = 1
         '
-        'TestToolStripMenuItem
-        '
-        Me.TestToolStripMenuItem.Name = "TestToolStripMenuItem"
-        Me.TestToolStripMenuItem.Size = New System.Drawing.Size(217, 24)
-        Me.TestToolStripMenuItem.Text = "Test"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
@@ -247,7 +225,4 @@ Partial Class frmMain
     Friend WithEvents ManageDatabaseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HomeToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents McMcWeeklyReportsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents OpenLateReportToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents AllocationReportToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents TestToolStripMenuItem As ToolStripMenuItem
 End Class

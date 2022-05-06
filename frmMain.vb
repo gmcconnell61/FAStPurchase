@@ -150,35 +150,7 @@
 
     End Sub
 
-    Private Sub OpenLateReportToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles OpenLateReportToolStripMenuItem1.Click
-        If frmMcMcOpenLate.Visible Then
-            frmMcMcOpenLate.BringToFront()
-            Exit Sub
-        End If
-        frmMcMcOpenLate = New McMc_OpenLate
-        frmMcMcOpenLate.TopLevel = False
-        frmMcMcOpenLate.Dock = DockStyle.Fill
-        frmMcMcOpenLate.MdiParent = Me
-        Me.MainPanel.Controls.Add(frmMcMcOpenLate)
-        frmMcMcOpenLate.Show()
-        frmMcMcOpenLate.BringToFront()
-    End Sub
-
-    Private Sub AllocationReportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AllocationReportToolStripMenuItem.Click
-        If frmMcMcAllocation.Visible Then
-            frmMcMcAllocation.BringToFront()
-            Exit Sub
-        End If
-        frmMcMcAllocation = New McMc_StockAllocation
-        frmMcMcAllocation.TopLevel = False
-        frmMcMcAllocation.Dock = DockStyle.Fill
-        frmMcMcAllocation.MdiParent = Me
-        Me.MainPanel.Controls.Add(frmMcMcAllocation)
-        frmMcMcAllocation.Show()
-        frmMcMcAllocation.BringToFront()
-    End Sub
-
-    Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
+    Private Sub McMcWeeklyReportsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles McMcWeeklyReportsToolStripMenuItem.Click
         If frmTest.Visible Then
             frmTest.BringToFront()
             Exit Sub

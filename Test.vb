@@ -6,20 +6,67 @@
     Dim tmpDV As DataView
     Dim fasDT As DataTable
     Dim fasDV As DataView
+    Dim tmpDate As Date
+    Dim vReportDate As String
 
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Cursor = Cursors.WaitCursor
         LoadFASOpen()
+        lblRollupDate.Text = myPurch.GetReportDate("RollUp Report Date")
+        lblAllocationDate.Text = myPurch.GetReportDate("Allocation Report Date")
+        GroupBox1.Text = "Filter Data      Record Count: " & dgvFASOpen.Rows.Count
+        Cursor = Cursors.Default
     End Sub
 
     Private Sub btnAllocated_Click(sender As Object, e As EventArgs) Handles btnAllocated.Click
-        UpdateAllocated()
+        LoadNewAllocationFile()
     End Sub
 
     Private Sub btnLate_Click(sender As Object, e As EventArgs) Handles btnLate.Click
-        UpdateLateDates()
+        LoadNewRollUpFile()
     End Sub
 
+    Private Sub btnGo_Click(sender As Object, e As EventArgs) Handles btnGo.Click
+        If rdoJob.Checked = True And Len(txtFilter.Text) > 0 Then
+            fasDV.RowFilter = "co_name like '%McNaught%' AND PONO like'%" + txtFilter.Text + "%'"
+        ElseIf rdoPartNo.Checked = True And Len(txtFilter.Text) > 0 Then
+            fasDV.RowFilter = "co_name like '%McNaught%' AND Column1 like'%" + txtFilter.Text + "%'"
+        End If
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+        txtFilter.Text = Nothing
+        fasDV.RowFilter = ""
+        fasDV.Sort = "PONO"
+        fasDV.RowFilter = "co_name like '%McNaught%'"
+    End Sub
+
+    Private Sub Filter_CheckedChanged(sender As Object, e As EventArgs) Handles rdo1.CheckedChanged, rdo2.CheckedChanged, rdo3.CheckedChanged, rdo4.CheckedChanged
+        If rdo0.Checked = True Then
+            fasDV.RowFilter = "co_name like '%McNaught%'"
+        ElseIf rdo1.Checked = True Then 'Allocated
+            fasDV.RowFilter = "co_name like '%McNaught%' AND Allocated > 0"
+        ElseIf rdo2.Checked = True Then 'New LateDate
+            fasDV.RowFilter = "co_name like '%McNaught%' AND LateDate <> NewArrival"
+        ElseIf rdo3.Checked = True Then 'Unchaged LateDate
+            fasDV.RowFilter = "co_name like '%McNaught%' AND LateDate = NewArrival"
+        ElseIf rdo4.Checked = True Then 'Problems
+            fasDV.RowFilter = "co_name like '%McNaught%' AND Issue = 1"
+        End If
+
+        'HighlightProblems()
+        GroupBox1.Text = "Filter Data      Record Count: " & dgvFASOpen.Rows.Count
+    End Sub
+
+
+
+    '***SUBS***
     Private Sub LoadFASOpen()
+        'Clears for reload
+        fasDT = Nothing
+        fasDV = Nothing
+        dgvFASOpen.DataSource = Nothing
+
         Cursor = Cursors.WaitCursor
         myPurch.LoadItemQuery()
         fasDT = myPurch.FAStQuoteDS.Tables("OpenItems")
@@ -28,7 +75,7 @@
         fasDT.Columns.Add("LateDate")
         fasDT.Columns.Add("PONO")
         fasDT.Columns.Add("Allocated")
-        fasDT.Columns.Add("Transferred")
+        fasDT.Columns.Add("Transfers")
         fasDT.Columns.Add("Issue")
 
         'Create DataView for filtering
@@ -50,7 +97,7 @@
             .Columns(10).Visible = False 'received
             .Columns(17).Visible = False 'Issue
 
-            .Columns(7).HeaderText = "Catalog Number"
+            .Columns(7).HeaderText = "CatalogNumber"
             .Columns(9).HeaderText = "Qty"
             .Columns(11).HeaderText = "Due Date"
             .Columns(11).DefaultCellStyle.Format = "d"
@@ -72,39 +119,98 @@
 
         End With
 
+        'Gets stored data from POLateDates
         For x = 0 To dgvFASOpen.Rows.Count - 1
             With dgvFASOpen.Rows(x)
                 vJobNo = .Cells(0).Value
                 vUnitNo = .Cells(1).Value
                 vPONo = .Cells(2).Value
                 vRecNo = .Cells(3).Value
+                'LateDate
                 .Cells(13).Value = myPurch.Check4LateDates(vJobNo, vUnitNo, vPONo, vRecNo)
-                If .Cells(13).Value = "1/1/0001" Then .Cells(13).Value = Nothing
+                If .Cells(13).Value = "1/1/0001" Or .Cells(13).Value = "1/2/1900" Then .Cells(13).Value = Nothing
+                'Allocated
+                .Cells(15).Value = myPurch.Check4Allocation(vJobNo, vUnitNo, vPONo, vRecNo)
+                'Transferred
+                .Cells(16).Value = myPurch.Check4Transfers(vJobNo, vUnitNo, vPONo, vRecNo)
                 .Cells(14).Value = vJobNo & "-" & Format(vUnitNo, "000") & "-" & Format(vPONo, "000")
             End With
         Next
-        'dgvFASOpen.Columns(13).DefaultCellStyle.Format = "d"
         Cursor = Cursors.Default
     End Sub
 
-    Private Sub UpdateAllocated()
-        vQuery = "Select PO, Product, [Qty Shipped], [Qty Ordered] from McMcAllocation ORDER BY PO, Product"
-        myDB.FAStQuoteQuery(vQuery, "Allocation")
+    Private Sub LoadNewAllocationFile()
+        Dim dialog As New OpenFileDialog()
+        dialog.Filter = "Excel files |*.xls;*.xlsx"
+        dialog.InitialDirectory = "fileserver1\Personal Folders\Purchasing\Mc-Mc Weekly Reports\"
+        dialog.Title = "Select Excel File to Import"
+        'Encrypt the selected file. I'll do this later. :)
+        If dialog.ShowDialog() = DialogResult.OK Then
+            dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
+        End If
+        vReportDate = InputBox("Enter Report Date: ", "Allocation Report Date", Format(Today(), "M/dd/yyyy").ToString)
 
-        For x = 0 To dgvFASOpen.Rows.Count - 1
-            With dgvFASOpen
-                For y = 0 To myDB.FAStQuoteDS.Tables("Allocation").Rows.Count - 1
-                    If .Rows(x).Cells(14).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(0) Then
-                        If .Rows(x).Cells(7).Value.ToString.Replace("-", "").Replace(" ", "") = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(1).ToString.Remove(0, 4) Then
-                            If .Rows(x).Cells(9).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(3) Then
-                                .Rows(x).Cells(15).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(2)
-                            End If
-                        End If
-                    End If
-                Next
-            End With
-        Next
+        'Load data to Table
+        myPurch.Load_McMc(dt, "dbo.McMcAllocation")
+
+        'Sets Report Date
+        vQuery = "Update FASt_System set Date = '" & vReportDate & "' WHERE Description = 'Allocation Report Date'"
+        myPurch.AddRecord(vQuery)
+
+        lblAllocationDate.Text = myPurch.GetReportDate("Allocation Report Date")
+        LoadFASOpen()
     End Sub
+
+    Private Sub LoadNewRollUpFile()
+        Dim dialog As New OpenFileDialog()
+        dialog.Filter = "Excel files |*.xls;*.xlsx"
+        dialog.InitialDirectory = "fileserver1\Personal Folders\Purchasing\Mc-Mc Weekly Reports\"
+        dialog.Title = "Select Excel File to Import"
+        If dialog.ShowDialog() = DialogResult.OK Then
+            dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
+        End If
+
+        'Load data to Table
+        For x = 0 To dt.Rows.Count - 1 'Clears dashes out of part numbers
+            dt.Rows(x).Item("shipprod") = dt.Rows(x).Item("shipprod").ToString.Replace("-", "")
+        Next
+        myPurch.Load_McMc(dt, "dbo.McMcOpenLate") 'Loads to datatable
+
+        lblRollupDate.Text = myPurch.GetReportDate("RollUp Report Date")
+        LoadFASOpen()
+    End Sub
+
+    'Private Sub UpdateAllocated()
+    '    'Cursor = Cursors.WaitCursor
+    '    'vQuery = "Select PO, Product, [Qty Shipped], [Qty Ordered] from McMcAllocation ORDER BY PO, Product"
+    '    'myDB.FAStQuoteQuery(vQuery, "Allocation")
+
+    '    ''Load from Report
+    '    'For x = 0 To dgvFASOpen.Rows.Count - 1
+    '    '    With dgvFASOpen
+    '    '        .Rows(x).Cells(15).Value = 0
+    '    '        For y = 0 To myDB.FAStQuoteDS.Tables("Allocation").Rows.Count - 1
+    '    '            If .Rows(x).Cells(14).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(0) Then
+    '    '                If .Rows(x).Cells(7).Value.ToString.Replace("-", "").Replace(" ", "") = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(1).ToString.Remove(0, 4) Then
+    '    '                    If .Rows(x).Cells(9).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(3) Then
+    '    '                        .Rows(x).Cells(15).Value = myDB.FAStQuoteDS.Tables("Allocation").Rows(y).Item(2)
+    '    '                    End If
+    '    '                End If
+    '    '            End If
+    '    '        Next
+    '    '    End With
+    '    'Next
+
+    '    ''Update Tables
+    '    'For x = 0 To dgvFASOpen.Rows.Count - 1
+    '    '    With dgvFASOpen.Rows(x)
+    '    '        If .Cells(15).Value > 0 Then
+    '    '            myPurch.UpdateAllocation(.Cells(0).Value, .Cells(1).Value, .Cells(2).Value, .Cells(3).Value, .Cells(7).Value, .Cells(15).Value)
+    '    '        End If
+    '    '    End With
+    '    'Next
+    '    'Cursor = Cursors.Default
+    'End Sub
 
     Private Sub UpdateLateDates()
         vQuery = "Select custpo, shipprod, qtyord, [Vendor Exp Ship Date] from McMcOpenLate ORDER BY custpo, shipprod"
@@ -118,16 +224,16 @@
                 vPONo = .Cells(2).Value
                 vRecNo = .Cells(3).Value
                 .Cells(13).Value = myPurch.Check4LateDates(vJobNo, vUnitNo, vPONo, vRecNo)
-                If .Cells(13).Value = "1/1/0001" Then .Cells(13).Value = Nothing
+                If .Cells(13).Value = "1/1/0001" Or .Cells(13).Value = "1/2/1900" Then .Cells(13).Value = Nothing
                 .Cells(14).Value = vJobNo & "-" & Format(vUnitNo, "000") & "-" & Format(vPONo, "000")
             End With
         Next
 
         'Checks for New LateDates
-        Dim tmpDate As Date
 
         For x = 0 To dgvFASOpen.Rows.Count - 1
             With dgvFASOpen
+                .Rows(x).Cells(17).Value = 0 'Resets Issue
                 For y = 0 To myDB.FAStQuoteDS.Tables("OpenLate").Rows.Count - 1
                     If .Rows(x).Cells(14).Value = myDB.FAStQuoteDS.Tables("OpenLate").Rows(y).Item(0) Then
                         If RTrim(.Rows(x).Cells(7).Value.ToString.Replace("-", "").Replace(" ", "")) = myDB.FAStQuoteDS.Tables("OpenLate").Rows(y).Item(1).ToString.Remove(0, 4) Then
@@ -137,9 +243,7 @@
                                 If .Rows(x).Cells(12).Value < Today() Then
                                     .Rows(x).DefaultCellStyle.BackColor = Color.Red
                                     .Rows(x).DefaultCellStyle.ForeColor = Color.Yellow
-                                    .Rows(x).Cells(16).Value = 1 'Issue
-                                Else
-                                    .Rows(x).Cells(16).Value = 0 'Resets Issue
+                                    .Rows(x).Cells(17).Value = 1 'Issue
                                 End If
                             End If
                         End If
@@ -178,41 +282,19 @@
     Private Sub HighlightProblems()
         For x = 0 To dgvFASOpen.Rows.Count - 1
             With dgvFASOpen
-                If IsDBNull(.Rows(x).Cells(12)) = False Then
-                    If .Rows(x).Cells(12).Value < Today() Then
-                        .Rows(x).DefaultCellStyle.BackColor = Color.Red
-                        .Rows(x).DefaultCellStyle.ForeColor = Color.Yellow
-                        .Rows(x).Cells(17).Value = 1 'Issue
-                    Else
-                        .Rows(x).Cells(17).Value = 0 'Resets Issue
-                    End If
+                If .rows(x).cells(17).value = 1 Then
+                    .Rows(x).DefaultCellStyle.BackColor = Color.Red
+                    .Rows(x).DefaultCellStyle.ForeColor = Color.Yellow
                 End If
             End With
         Next
     End Sub
 
-    Private Sub Filter_CheckedChanged(sender As Object, e As EventArgs) Handles rdo1.CheckedChanged, rdo2.CheckedChanged, rdo3.CheckedChanged, rdo4.CheckedChanged
-        If rdo0.Checked = True Then
-            fasDV.RowFilter = "co_name like '%McNaught%'"
-        ElseIf rdo1.Checked = True Then 'Allocated
-            fasDV.RowFilter = "co_name like '%McNaught%' AND Allocated > 0"
-            GoTo SkipHighlight
-        ElseIf rdo2.Checked = True Then 'New LateDate
-            fasDV.RowFilter = "co_name like '%McNaught%' AND LateDate <> NewArrival"
-        ElseIf rdo3.Checked = True Then 'Unchaged LateDate
-            fasDV.RowFilter = "co_name like '%McNaught%' AND LateDate = NewArrival"
-        ElseIf rdo4.Checked = True Then 'Problems
-            fasDV.RowFilter = "co_name like '%McNaught%' AND Issue = 1"
-        End If
 
-        'HighlightProblems()
-SkipHighlight:
-        lblRecordCount.Text = "Record Count: " & dgvFASOpen.Rows.Count
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        HighlightProblems()
+        'testing area
+
+
     End Sub
-
-
 End Class

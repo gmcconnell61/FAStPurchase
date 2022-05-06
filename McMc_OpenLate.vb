@@ -9,58 +9,11 @@
 
     Private Sub McMc_OpenLate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFASOpen()
+        LoadMcMc()
     End Sub
 
     Private Sub btnGetFile_Click(sender As Object, e As EventArgs) Handles btnGetFile.Click
-        Dim dialog As New OpenFileDialog()
-        dialog.Filter = "Excel files |*.xls;*.xlsx"
-        dialog.InitialDirectory = "fileserver1\Personal Folders\Purchasing\Mc-Mc Weekly Reports\"
-        dialog.Title = "Select Excel File to Import"
-        If dialog.ShowDialog() = DialogResult.OK Then
-            dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
-        End If
-
-        'Load data to Table
-        For x = 0 To dt.Rows.Count - 1 'Clears dashes out of part numbers
-            dt.Rows(x).Item("shipprod") = dt.Rows(x).Item("shipprod").ToString.Replace("-", "")
-        Next
-        myPurch.Load_McMc(dt, "dbo.McMcOpenLate") 'Loads to datatable
-
-        'Setup to display in DGV
-        tmpDV = dt.DefaultView
-        tmpDV.Sort = "custpo"
-
-        With dgvOpenLate
-            .DataSource = tmpDV
-            .Columns(0).Visible = False
-            .Columns(1).Visible = False
-            .Columns(2).Visible = False
-            .Columns(3).Visible = False
-            .Columns(4).Visible = False
-            .Columns(5).Visible = False
-            .Columns(8).Visible = False
-            .Columns(9).Visible = False
-            .Columns(16).Visible = False
-            .Columns(17).Visible = False
-            .Columns(18).Visible = False
-            '.Columns(19).Visible = False
-            '.Columns(20).Visible = False
-            '.Columns(21).Visible = False
-            '.Columns(22).Visible = False
-
-            .Columns(15).DisplayIndex = 1
-
-            .Columns(6).FillWeight = 10 'Mc-Mc Order Number
-            .Columns(7).FillWeight = 5 'Mc-Mc Order Suffix
-            .Columns(10).FillWeight = 30 'Part Number
-            .Columns(11).FillWeight = 10 'Ordered
-            .Columns(12).FillWeight = 10 'Req date
-            .Columns(13).FillWeight = 10 'Promise date
-            .Columns(14).FillWeight = 10 'RA Expected Ship
-            .Columns(15).FillWeight = 15 'FAS PO #
-
-        End With
-        LoadNewLateDate()
+        LoadNewFile()
     End Sub
 
     Private Sub btnGo_Click(sender As Object, e As EventArgs) Handles btnGo.Click
@@ -190,8 +143,67 @@
                 .Cells(14).Value = vJobNo & "-" & Format(vUnitNo, "000") & "-" & Format(vPONo, "000")
             End With
         Next
-        'dgvFASOpen.Columns(13).DefaultCellStyle.Format = "d"
         Cursor = Cursors.Default
+    End Sub
+
+    Private Sub LoadMcMc()
+        vQuery = "Select * FROM McMcOpenLate ORDER BY custpo"
+        myDB.FAStQuoteQuery(vQuery, "RollUp")
+
+        'Setup to display in DGV
+        tmpDV = myDB.FAStQuoteDS.Tables("RollUp").DefaultView
+        tmpDV.Sort = "custpo"
+        dgvOpenLate.DataSource = tmpDV
+
+        With dgvOpenLate
+            .Columns(0).Visible = False
+            .Columns(1).Visible = False
+            .Columns(2).Visible = False
+            .Columns(3).Visible = False
+            .Columns(4).Visible = False
+            .Columns(5).Visible = False
+            .Columns(8).Visible = False
+            .Columns(9).Visible = False
+            .Columns(16).Visible = False
+            .Columns(17).Visible = False
+            .Columns(18).Visible = False
+
+            .Columns(15).DisplayIndex = 1
+
+            .Columns(6).FillWeight = 10 'Mc-Mc Order Number
+            .Columns(7).FillWeight = 5 'Mc-Mc Order Suffix
+            .Columns(10).FillWeight = 30 'Part Number
+            .Columns(11).FillWeight = 10 'Ordered
+            .Columns(12).FillWeight = 10 'Req date
+            .Columns(13).FillWeight = 10 'Promise date
+            .Columns(14).FillWeight = 10 'RA Expected Ship
+            .Columns(15).FillWeight = 15 'FAS PO #
+        End With
+
+        lblReportDate.Text = myPurch.GetReportDate("RollUp Report Date")
+    End Sub
+
+    Private Sub LoadNewFile()
+        Dim dialog As New OpenFileDialog()
+        dialog.Filter = "Excel files |*.xls;*.xlsx"
+        dialog.InitialDirectory = "fileserver1\Personal Folders\Purchasing\Mc-Mc Weekly Reports\"
+        dialog.Title = "Select Excel File to Import"
+        If dialog.ShowDialog() = DialogResult.OK Then
+            dt = myImpExp.ImportExceltoDatatable(dialog.FileName)
+        End If
+
+        'Load data to Table
+        For x = 0 To dt.Rows.Count - 1 'Clears dashes out of part numbers
+            dt.Rows(x).Item("shipprod") = dt.Rows(x).Item("shipprod").ToString.Replace("-", "")
+        Next
+        myPurch.Load_McMc(dt, "dbo.McMcOpenLate") 'Loads to datatable
+
+        'Setup to display in DGV
+        tmpDV = dt.DefaultView
+        tmpDV.Sort = "custpo"
+
+        lblReportDate.Text = myPurch.GetReportDate("RollUp Report Date")
+        LoadNewLateDate()
     End Sub
 
     Private Sub LoadNewLateDate()

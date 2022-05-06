@@ -25,7 +25,9 @@ Partial Class McMc_OpenLate
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblReportDate = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkNoDate = New System.Windows.Forms.CheckBox()
         Me.chkEarlier = New System.Windows.Forms.CheckBox()
         Me.chkNoChange = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -39,7 +41,6 @@ Partial Class McMc_OpenLate
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.dgvFASOpen = New System.Windows.Forms.DataGridView()
         Me.dgvOpenLate = New System.Windows.Forms.DataGridView()
-        Me.chkNoDate = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -50,6 +51,7 @@ Partial Class McMc_OpenLate
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblReportDate)
         Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.GroupBox1)
@@ -61,17 +63,39 @@ Partial Class McMc_OpenLate
         Me.Panel1.Size = New System.Drawing.Size(1904, 124)
         Me.Panel1.TabIndex = 4
         '
+        'lblReportDate
+        '
+        Me.lblReportDate.AutoSize = True
+        Me.lblReportDate.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.lblReportDate.Location = New System.Drawing.Point(1097, 76)
+        Me.lblReportDate.Name = "lblReportDate"
+        Me.lblReportDate.Size = New System.Drawing.Size(25, 30)
+        Me.lblReportDate.TabIndex = 5
+        Me.lblReportDate.Text = "x"
+        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.chkNoDate)
         Me.GroupBox2.Controls.Add(Me.chkEarlier)
         Me.GroupBox2.Controls.Add(Me.chkNoChange)
-        Me.GroupBox2.Location = New System.Drawing.Point(1497, 9)
+        Me.GroupBox2.Location = New System.Drawing.Point(1497, 4)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(310, 112)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Filter"
+        '
+        'chkNoDate
+        '
+        Me.chkNoDate.AutoSize = True
+        Me.chkNoDate.Checked = True
+        Me.chkNoDate.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkNoDate.Location = New System.Drawing.Point(20, 85)
+        Me.chkNoDate.Name = "chkNoDate"
+        Me.chkNoDate.Size = New System.Drawing.Size(98, 24)
+        Me.chkNoDate.TabIndex = 2
+        Me.chkNoDate.Text = "Not Found"
+        Me.chkNoDate.UseVisualStyleBackColor = True
         '
         'chkEarlier
         '
@@ -176,9 +200,9 @@ Partial Class McMc_OpenLate
         Me.btnGetFile.Location = New System.Drawing.Point(25, 26)
         Me.btnGetFile.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnGetFile.Name = "btnGetFile"
-        Me.btnGetFile.Size = New System.Drawing.Size(140, 44)
+        Me.btnGetFile.Size = New System.Drawing.Size(160, 44)
         Me.btnGetFile.TabIndex = 0
-        Me.btnGetFile.Text = "Get New File"
+        Me.btnGetFile.Text = "Load New Report"
         Me.btnGetFile.UseVisualStyleBackColor = True
         '
         'Panel2
@@ -228,7 +252,7 @@ Partial Class McMc_OpenLate
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvOpenLate.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvOpenLate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvOpenLate.Location = New System.Drawing.Point(0, 0)
+        Me.dgvOpenLate.Location = New System.Drawing.Point(10, 0)
         Me.dgvOpenLate.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvOpenLate.Name = "dgvOpenLate"
         Me.dgvOpenLate.ReadOnly = True
@@ -238,18 +262,6 @@ Partial Class McMc_OpenLate
         Me.dgvOpenLate.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvOpenLate.Size = New System.Drawing.Size(952, 949)
         Me.dgvOpenLate.TabIndex = 2
-        '
-        'chkNoDate
-        '
-        Me.chkNoDate.AutoSize = True
-        Me.chkNoDate.Checked = True
-        Me.chkNoDate.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkNoDate.Location = New System.Drawing.Point(20, 85)
-        Me.chkNoDate.Name = "chkNoDate"
-        Me.chkNoDate.Size = New System.Drawing.Size(98, 24)
-        Me.chkNoDate.TabIndex = 2
-        Me.chkNoDate.Text = "Not Found"
-        Me.chkNoDate.UseVisualStyleBackColor = True
         '
         'McMc_OpenLate
         '
@@ -296,4 +308,5 @@ Partial Class McMc_OpenLate
     Friend WithEvents chkEarlier As CheckBox
     Friend WithEvents chkNoChange As CheckBox
     Friend WithEvents chkNoDate As CheckBox
+    Friend WithEvents lblReportDate As Label
 End Class

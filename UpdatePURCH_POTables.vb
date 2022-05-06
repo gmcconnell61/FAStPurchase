@@ -569,6 +569,54 @@ Public Class UpdatePURCH_POTables
         End Try
     End Function
 
+    Public Function Check4Allocation(job As Integer, unit As Integer, po As Integer, rec As Integer)
+        Dim obj As Object
+
+        vQuery = "Select Allocated from POLateDates where " &
+            "Job = " & job & " AND " &
+            "Unit = " & unit & " AND " &
+            "PO = " & po & " AND " &
+            "Rec = " & rec
+
+        Try
+            FAStQuoteCon.Open()
+            FAStQuoteCmd = New SqlCommand(vQuery, FAStQuoteCon)
+            obj = FAStQuoteCmd.ExecuteScalar()
+            FAStQuoteCon.Close()
+            If IsDBNull(obj) = False Then Return obj Else Return 0
+        Catch ex As Exception
+            MsgBox("Check4Allocation - " & ex.Message)
+            If FAStQuoteCon.State = ConnectionState.Open Then
+                FAStQuoteCon.Close()
+            End If
+            Return 0
+        End Try
+    End Function
+
+    Public Function Check4Transfers(job As Integer, unit As Integer, po As Integer, rec As Integer)
+        Dim obj As Object
+
+        vQuery = "Select Transferred from POLateDates where " &
+            "Job = " & job & " AND " &
+            "Unit = " & unit & " AND " &
+            "PO = " & po & " AND " &
+            "Rec = " & rec
+
+        Try
+            FAStQuoteCon.Open()
+            FAStQuoteCmd = New SqlCommand(vQuery, FAStQuoteCon)
+            obj = FAStQuoteCmd.ExecuteScalar()
+            FAStQuoteCon.Close()
+            If IsDBNull(obj) = False Then Return obj Else Return 0
+        Catch ex As Exception
+            MsgBox("Check4Transfers - " & ex.Message)
+            If FAStQuoteCon.State = ConnectionState.Open Then
+                FAStQuoteCon.Close()
+            End If
+            Return 0
+        End Try
+    End Function
+
     Public Sub LoadItemQuery()
         ClearTable("PurchOpenItems")
 
@@ -740,7 +788,28 @@ Public Class UpdatePURCH_POTables
             End If
             Return Nothing
         End Try
-
     End Function
+
+    Public Sub UpdateAllocation(Job As Integer, Unit As Integer, PO As Integer, Rec As Integer, PartNo As String, Qty As Integer)
+        vQuery = "Select * FROM POLateDates WHERE " &
+                 "Job = " & Job & " AND " &
+                 "Unit = " & Unit & " AND " &
+                 "PO = " & PO & " AND " &
+                 "Rec = " & Rec
+        RunQuery(vQuery, "Exists", 1)
+
+        'Checks for existing PO record
+        If FAStQuoteDS.Tables("Exists").Rows.Count > 0 Then
+            vQuery = "Update POLateDates Set Allocated = " & Qty & ", CatalogNo = '" & PartNo & "' WHERE " &
+                 "Job = " & Job & " And " &
+                 "Unit = " & Unit & " And " &
+                 "PO = " & PO & " And " &
+                 "Rec = " & Rec
+        Else
+            vQuery = "Insert into POLateDates (Job, Unit, PO, Rec, LateDate, CatalogNo, Allocated) VALUES( " &
+                     Job & ", " & Unit & ", " & PO & ", " & Rec & ", 1/1/0001, '" & PartNo & "', " & Qty & ")"
+        End If
+        AddRecord(vQuery)
+    End Sub
 
 End Class
