@@ -22,7 +22,7 @@ Partial Class Test
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvFASOpen = New System.Windows.Forms.DataGridView()
         Me.btnAllocated = New System.Windows.Forms.Button()
         Me.btnLate = New System.Windows.Forms.Button()
@@ -32,7 +32,7 @@ Partial Class Test
         Me.rdo3 = New System.Windows.Forms.RadioButton()
         Me.rdo2 = New System.Windows.Forms.RadioButton()
         Me.rdo1 = New System.Windows.Forms.RadioButton()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblRecordCount = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvFASOpen, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -43,14 +43,14 @@ Partial Class Test
         Me.dgvFASOpen.AllowUserToAddRows = False
         Me.dgvFASOpen.AllowUserToDeleteRows = False
         Me.dgvFASOpen.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvFASOpen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFASOpen.Location = New System.Drawing.Point(800, 13)
         Me.dgvFASOpen.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
@@ -150,14 +150,14 @@ Partial Class Test
         Me.rdo1.Text = "Allocated"
         Me.rdo1.UseVisualStyleBackColor = True
         '
-        'Label1
+        'lblRecordCount
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(708, 25)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 20)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Label1"
+        Me.lblRecordCount.AutoSize = True
+        Me.lblRecordCount.Location = New System.Drawing.Point(708, 25)
+        Me.lblRecordCount.Name = "lblRecordCount"
+        Me.lblRecordCount.Size = New System.Drawing.Size(53, 20)
+        Me.lblRecordCount.TabIndex = 8
+        Me.lblRecordCount.Text = "Label1"
         '
         'Button1
         '
@@ -174,7 +174,7 @@ Partial Class Test
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1904, 1095)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblRecordCount)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnLate)
         Me.Controls.Add(Me.btnAllocated)
@@ -201,6 +201,6 @@ Partial Class Test
     Friend WithEvents rdo2 As RadioButton
     Friend WithEvents rdo1 As RadioButton
     Friend WithEvents rdo0 As RadioButton
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblRecordCount As Label
     Friend WithEvents Button1 As Button
 End Class

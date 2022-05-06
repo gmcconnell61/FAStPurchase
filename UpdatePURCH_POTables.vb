@@ -723,4 +723,24 @@ Public Class UpdatePURCH_POTables
 
     End Sub
 
+    Public Function GetReportDate(ReportName As String)
+        Dim obj As Object
+        vQuery = "Select Date FROM FASt_System WHERE Description = '" & ReportName & "'"
+
+        Try
+            FAStQuoteCon.Open()
+            FAStQuoteCmd = New SqlCommand(vQuery, FAStQuoteCon)
+            obj = FAStQuoteCmd.ExecuteScalar()
+            FAStQuoteCon.Close()
+            Return obj
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            If FAStQuoteCon.State = ConnectionState.Open Then
+                FAStQuoteCon.Close()
+            End If
+            Return Nothing
+        End Try
+
+    End Function
+
 End Class

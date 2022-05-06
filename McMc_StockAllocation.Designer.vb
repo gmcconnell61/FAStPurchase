@@ -22,10 +22,11 @@ Partial Class McMc_StockAllocation
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnGetFile = New System.Windows.Forms.Button()
         Me.dgvStockAllocation = New System.Windows.Forms.DataGridView()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnReset = New System.Windows.Forms.Button()
         Me.btnGo = New System.Windows.Forms.Button()
@@ -33,7 +34,7 @@ Partial Class McMc_StockAllocation
         Me.rdoPartNo = New System.Windows.Forms.RadioButton()
         Me.rdoJob = New System.Windows.Forms.RadioButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblReportDate = New System.Windows.Forms.Label()
         CType(Me.dgvStockAllocation, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -46,9 +47,9 @@ Partial Class McMc_StockAllocation
         Me.btnGetFile.Location = New System.Drawing.Point(25, 26)
         Me.btnGetFile.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnGetFile.Name = "btnGetFile"
-        Me.btnGetFile.Size = New System.Drawing.Size(140, 44)
+        Me.btnGetFile.Size = New System.Drawing.Size(152, 44)
         Me.btnGetFile.TabIndex = 0
-        Me.btnGetFile.Text = "Get File"
+        Me.btnGetFile.Text = "Load New Report"
         Me.btnGetFile.UseVisualStyleBackColor = True
         '
         'dgvStockAllocation
@@ -56,14 +57,14 @@ Partial Class McMc_StockAllocation
         Me.dgvStockAllocation.AllowUserToAddRows = False
         Me.dgvStockAllocation.AllowUserToDeleteRows = False
         Me.dgvStockAllocation.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvStockAllocation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvStockAllocation.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvStockAllocation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvStockAllocation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvStockAllocation.Location = New System.Drawing.Point(0, 0)
@@ -79,6 +80,7 @@ Partial Class McMc_StockAllocation
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblReportDate)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.GroupBox1)
         Me.Panel1.Controls.Add(Me.btnGetFile)
@@ -88,6 +90,16 @@ Partial Class McMc_StockAllocation
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(2176, 124)
         Me.Panel1.TabIndex = 3
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.Label1.Location = New System.Drawing.Point(932, 39)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(515, 37)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Mc-Mc Open Order - Allocation Report"
         '
         'GroupBox1
         '
@@ -161,15 +173,15 @@ Partial Class McMc_StockAllocation
         Me.Panel2.Size = New System.Drawing.Size(2176, 1066)
         Me.Panel2.TabIndex = 4
         '
-        'Label1
+        'lblReportDate
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.Label1.Location = New System.Drawing.Point(932, 39)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(515, 37)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = "Mc-Mc Open Order - Allocation Report"
+        Me.lblReportDate.AutoSize = True
+        Me.lblReportDate.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
+        Me.lblReportDate.Location = New System.Drawing.Point(1099, 76)
+        Me.lblReportDate.Name = "lblReportDate"
+        Me.lblReportDate.Size = New System.Drawing.Size(25, 30)
+        Me.lblReportDate.TabIndex = 4
+        Me.lblReportDate.Text = "x"
         '
         'McMc_StockAllocation
         '
@@ -206,4 +218,5 @@ Partial Class McMc_StockAllocation
     Friend WithEvents rdoPartNo As RadioButton
     Friend WithEvents rdoJob As RadioButton
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblReportDate As Label
 End Class

@@ -53,4 +53,19 @@ Public Class DB_Connections
             'MsgBox(ex.Message)
         End Try
     End Sub
+
+    Public Sub FAStQuote_AddRecord(mySqlQuery As String)
+        Try
+            FAStQuoteCon.Open()
+            FAStQuoteCmd = New SqlCommand(mySqlQuery, FAStQuoteCon)
+            FAStQuoteCmd.ExecuteNonQuery()
+            FAStQuoteCon.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            If FAStQuoteCon.State = ConnectionState.Open Then
+                FAStQuoteCon.Close()
+            End If
+        End Try
+
+    End Sub
 End Class

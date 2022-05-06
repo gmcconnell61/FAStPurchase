@@ -104,9 +104,6 @@
                 Next
             End With
         Next
-
-        'fasDV.RowFilter = "co_name like '%McNaught%' AND Allocated > 0"
-
     End Sub
 
     Private Sub UpdateLateDates()
@@ -210,7 +207,7 @@
 
         'HighlightProblems()
 SkipHighlight:
-        Label1.Text = dgvFASOpen.Rows.Count
+        lblRecordCount.Text = "Record Count: " & dgvFASOpen.Rows.Count
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
