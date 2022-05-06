@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Test
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,18 +20,18 @@ Partial Class Test
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.dgvFASOpen = New System.Windows.Forms.DataGridView()
         Me.btnAllocated = New System.Windows.Forms.Button()
         Me.btnLate = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rdo0 = New System.Windows.Forms.RadioButton()
         Me.rdo4 = New System.Windows.Forms.RadioButton()
         Me.rdo3 = New System.Windows.Forms.RadioButton()
         Me.rdo2 = New System.Windows.Forms.RadioButton()
         Me.rdo1 = New System.Windows.Forms.RadioButton()
-        Me.rdo0 = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvFASOpen, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -43,23 +43,23 @@ Partial Class Test
         Me.dgvFASOpen.AllowUserToAddRows = False
         Me.dgvFASOpen.AllowUserToDeleteRows = False
         Me.dgvFASOpen.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvFASOpen.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvFASOpen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFASOpen.Location = New System.Drawing.Point(930, 13)
+        Me.dgvFASOpen.Location = New System.Drawing.Point(800, 13)
         Me.dgvFASOpen.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvFASOpen.Name = "dgvFASOpen"
         Me.dgvFASOpen.RowHeadersVisible = False
         Me.dgvFASOpen.RowHeadersWidth = 45
         Me.dgvFASOpen.RowTemplate.Height = 27
         Me.dgvFASOpen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvFASOpen.Size = New System.Drawing.Size(962, 1053)
+        Me.dgvFASOpen.Size = New System.Drawing.Size(1092, 1053)
         Me.dgvFASOpen.TabIndex = 4
         '
         'btnAllocated
@@ -73,7 +73,7 @@ Partial Class Test
         '
         'btnLate
         '
-        Me.btnLate.Location = New System.Drawing.Point(12, 103)
+        Me.btnLate.Location = New System.Drawing.Point(12, 98)
         Me.btnLate.Name = "btnLate"
         Me.btnLate.Size = New System.Drawing.Size(194, 46)
         Me.btnLate.TabIndex = 6
@@ -89,10 +89,22 @@ Partial Class Test
         Me.GroupBox1.Controls.Add(Me.rdo1)
         Me.GroupBox1.Location = New System.Drawing.Point(306, 25)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(257, 216)
+        Me.GroupBox1.Size = New System.Drawing.Size(257, 208)
         Me.GroupBox1.TabIndex = 7
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "FIlter Data"
+        '
+        'rdo0
+        '
+        Me.rdo0.AutoSize = True
+        Me.rdo0.Checked = True
+        Me.rdo0.Location = New System.Drawing.Point(20, 37)
+        Me.rdo0.Name = "rdo0"
+        Me.rdo0.Size = New System.Drawing.Size(85, 24)
+        Me.rdo0.TabIndex = 4
+        Me.rdo0.TabStop = True
+        Me.rdo0.Text = "All Items"
+        Me.rdo0.UseVisualStyleBackColor = True
         '
         'rdo4
         '
@@ -138,22 +150,10 @@ Partial Class Test
         Me.rdo1.Text = "Allocated"
         Me.rdo1.UseVisualStyleBackColor = True
         '
-        'rdo0
-        '
-        Me.rdo0.AutoSize = True
-        Me.rdo0.Checked = True
-        Me.rdo0.Location = New System.Drawing.Point(20, 37)
-        Me.rdo0.Name = "rdo0"
-        Me.rdo0.Size = New System.Drawing.Size(85, 24)
-        Me.rdo0.TabIndex = 4
-        Me.rdo0.TabStop = True
-        Me.rdo0.Text = "All Items"
-        Me.rdo0.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(846, 25)
+        Me.Label1.Location = New System.Drawing.Point(708, 25)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(53, 20)
         Me.Label1.TabIndex = 8
@@ -161,7 +161,7 @@ Partial Class Test
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(697, 248)
+        Me.Button1.Location = New System.Drawing.Point(306, 308)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(83, 35)
         Me.Button1.TabIndex = 9

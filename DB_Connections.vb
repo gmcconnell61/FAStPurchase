@@ -35,7 +35,7 @@ Public Class DB_Connections
             FASCon.Close()
         Catch ex As Exception
             If FASCon.State = ConnectionState.Open Then FASCon.Close()
-            'MsgBox(ex.Message)
+            MsgBox(ex.Message)
         End Try
     End Sub
 

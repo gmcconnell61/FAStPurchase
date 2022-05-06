@@ -597,6 +597,17 @@ Public Class UpdatePURCH_POTables
         FAStQuoteCon.Close()
     End Sub
 
+    Public Sub LoadFASTransfers()
+        vQuery = "SELECT (str(PurchPODetail.job_no) + str(format(PurchPODetail.unit_no, '000')) + str(format(PurchPODetail.po_no, '000'))) as PONO, " &
+                 "PurchPODetail.rec_no, PurchPOHeader.po_date, PurchPOHeader.co_name, PurchPODetail.mfg, rtrim(PurchPODetail.part_no), PurchPODetail.description, PurchPODetail.quantity " &
+                 "FROM PurchPODetail INNER JOIN PurchPOHeader ON PurchPODetail.job_no = PurchPOHeader.job_no And PurchPODetail.unit_no = PurchPOHeader.unit_no And PurchPODetail.po_no = PurchPOHeader.po_no " &
+                 "GROUP BY PurchPODetail.job_no, PurchPODetail.unit_no, PurchPODetail.po_no, PurchPODetail.rec_no, PurchPOHeader.po_date," &
+                 "PurchPODetail.mfg, PurchPODetail.part_no, PurchPODetail.description, PurchPODetail.quantity, PurchPOHeader.co_name, PurchPOHeader.recv_on " &
+                 "HAVING  PurchPOHeader.co_name = 'FAS - Internal Transfers'" &
+                 "ORDER BY PurchPODetail.mfg, PurchPODetail.part_no"
+        RunQuery(vQuery, "FASTransfers", 1)
+    End Sub
+
     Public Sub ClearTable(myTable As String)
         'This is called from this Class
         vQuery = "Delete from " & myTable

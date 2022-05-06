@@ -28,6 +28,7 @@
         fasDT.Columns.Add("LateDate")
         fasDT.Columns.Add("PONO")
         fasDT.Columns.Add("Allocated")
+        fasDT.Columns.Add("Transferred")
         fasDT.Columns.Add("Issue")
 
         'Create DataView for filtering
@@ -47,7 +48,7 @@
             .Columns(6).Visible = False 'mfg
             .Columns(8).Visible = False 'desc
             .Columns(10).Visible = False 'received
-            .Columns(16).Visible = False 'received
+            .Columns(17).Visible = False 'Issue
 
             .Columns(7).HeaderText = "Catalog Number"
             .Columns(9).HeaderText = "Qty"
@@ -62,11 +63,12 @@
 
             .Columns(7).FillWeight = 30
             .Columns(9).FillWeight = 10
-            .Columns(11).FillWeight = 12
-            .Columns(12).FillWeight = 12
-            .Columns(13).FillWeight = 12
-            .Columns(14).FillWeight = 12
-            .Columns(15).FillWeight = 12
+            .Columns(11).FillWeight = 10
+            .Columns(12).FillWeight = 10
+            .Columns(13).FillWeight = 10
+            .Columns(14).FillWeight = 10
+            .Columns(15).FillWeight = 10
+            .Columns(16).FillWeight = 10
 
         End With
 
@@ -151,6 +153,31 @@
 
     End Sub
 
+    'Private Sub UpdateTransfer()
+    '    vQuery = "SELECT po_detail.job_no, rtrim(po_detail.part_no), " &
+    '             "sum(po_detail.quantity) as Total, po_header.vendor_id, job_master.status " &
+    '             "FROM po_detail INNER JOIN po_header ON po_detail.job_no = po_header.job_no And po_detail.unit_no = po_header.unit_no And po_detail.po_no = po_header.po_no " &
+    '             "INNER JOIN job_master on po_detail.job_no = job_master.job_no " &
+    '             "GROUP BY po_detail.job_no, po_detail.unit_no, po_detail.po_no, po_detail.rec_no, po_header.po_date," &
+    '             "po_detail.mfg, po_detail.part_no, po_detail.description, po_detail.quantity, po_header.vendor_id, job_master.status " &
+    '             "HAVING  po_header.vendor_id = 'F7823' AND po_detail.quantity > 0 AND job_master.status = 'A'" &
+    '             "ORDER BY po_detail.job_no, po_detail.part_no"
+    '    myDB.FASQuery(vQuery, "FASTransfers")
+
+    '    For x = 0 To dgvFASOpen.Rows.Count - 1
+    '        With dgvFASOpen
+    '            For y = 0 To myDB.FASDS.Tables("FASTransfers").Rows.Count - 1
+    '                If .Rows(x).Cells(0).Value = myDB.FASDS.Tables("FASTransfers").Rows(y).Item(0) Then
+    '                    If .Rows(x).Cells(7).Value.ToString.Replace("-", "").Replace(" ", "") =
+    '                        myDB.FASDS.Tables("OpenLate").Rows(y).Item(1).ToString.Replace("-", "").Replace(" ", "") Then
+    '                        .Rows(x).Cells(16).Value = myDB.FASDS.Tables("FASTransfers").Rows(y).Item(2)
+    '                    End If
+    '                End If
+    '            Next
+    '        End With
+    '    Next
+    'End Sub
+
     Private Sub HighlightProblems()
         For x = 0 To dgvFASOpen.Rows.Count - 1
             With dgvFASOpen
@@ -158,9 +185,9 @@
                     If .Rows(x).Cells(12).Value < Today() Then
                         .Rows(x).DefaultCellStyle.BackColor = Color.Red
                         .Rows(x).DefaultCellStyle.ForeColor = Color.Yellow
-                        .Rows(x).Cells(16).Value = 1 'Issue
+                        .Rows(x).Cells(17).Value = 1 'Issue
                     Else
-                        .Rows(x).Cells(16).Value = 0 'Resets Issue
+                        .Rows(x).Cells(17).Value = 0 'Resets Issue
                     End If
                 End If
             End With
@@ -189,4 +216,6 @@ SkipHighlight:
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         HighlightProblems()
     End Sub
+
+
 End Class
